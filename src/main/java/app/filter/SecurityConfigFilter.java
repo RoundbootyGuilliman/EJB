@@ -7,11 +7,12 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
 @WebFilter("/*")
-public class SecurityFilter implements Filter {
+public class SecurityConfigFilter implements Filter {
 	
 	@Override
 	public void init(FilterConfig filterConfig) {
@@ -24,16 +25,19 @@ public class SecurityFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		
 		Authentication authentication = (Authentication) request.getSession().getAttribute("auth");
-		SecurityConfig securityConfig = (SecurityConfig) request.getServletContext().getAttribute("securityConfig");
 		
-		List<String> allowedURLs = securityConfig.getAllowedURLs(authentication.getAuthority());
-		
-		for (String allowedURL : allowedURLs) {
-			if (request.getServletPath().equals(allowedURL)) {
-				filterChain.doFilter(request, response);
-			}
+		if (authentication == null) {
+			request.getSession().setAttribute("auth", new Authentication());
+			
+			SecurityConfig securityConfig = new SecurityConfig();
+			
+			securityConfig.configureAdminRights("/delete", "/edit");
+			securityConfig.configureUserRights("/add");
+			securityConfig.configureGuestRights("/", "/main", "/news");
+			
+			request.getServletContext().setAttribute("securityConfig", securityConfig);
 		}
-		throw new ServletException("Forbidden");
+		filterChain.doFilter(request, response);
 	}
 	
 	@Override
