@@ -6,34 +6,26 @@ import java.util.List;
 
 public class SecurityConfig {
 	
-	private List<String> adminURLs = new ArrayList<>();
-	private List<String> userURLs = new ArrayList<>();
-	private List<String> guestURLs = new ArrayList<>();
+	private List<String> forbiddenUserURLs = new ArrayList<>();
+	private List<String> forbiddenGuestURLs = new ArrayList<>();
 	
 	public void configureAdminRights(String... urls) {
-		adminURLs.addAll(Arrays.asList(urls));
+		forbiddenUserURLs.addAll(Arrays.asList(urls));
+		forbiddenGuestURLs.addAll(Arrays.asList(urls));
 	}
 	
 	public void configureUserRights(String... urls) {
-		adminURLs.addAll(Arrays.asList(urls));
-		userURLs.addAll(Arrays.asList(urls));
-		
+		forbiddenGuestURLs.addAll(Arrays.asList(urls));
 	}
 	
-	public void configureGuestRights(String... urls) {
-		adminURLs.addAll(Arrays.asList(urls));
-		userURLs.addAll(Arrays.asList(urls));
-		guestURLs.addAll(Arrays.asList(urls));
-	}
-	
-	public List<String> getAllowedURLs(String authority) {
+	public List<String> getForbiddenURLs(String authority) {
 		
 		if (authority.equals("ADMIN")) {
-			return adminURLs;
-		} else if (authority.equals("USER")) {
-			return userURLs;
+			return new ArrayList<>();
+		} else if (authority.equals("USER")){
+			return forbiddenUserURLs;
 		} else {
-			return guestURLs;
+			return forbiddenGuestURLs;
 		}
 	}
 }

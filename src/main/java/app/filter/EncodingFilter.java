@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter("/*")
+@WebFilter(filterName = "encodingFilter")
 public class EncodingFilter implements Filter {
 	
 	@Override
@@ -19,9 +19,8 @@ public class EncodingFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("AYY SHITE");
-		
 		response.setCharacterEncoding("UTF-8");
+		
 		filterChain.doFilter(request, response);
 	}
 	

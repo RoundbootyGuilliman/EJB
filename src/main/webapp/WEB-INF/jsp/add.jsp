@@ -16,6 +16,7 @@
 	</style>
 </head>
 <body onload="ok()">
+<fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="ValidationMessages" var="lang"/>
 
 <tag:header/>

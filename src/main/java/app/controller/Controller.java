@@ -61,6 +61,16 @@ public class Controller {
 		}
 	}
 	
+	@WebServlet("/openLogin")
+	static class OpenLogin extends HttpServlet {
+		
+		@Override
+		protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+			request.getRequestDispatcher("WEB-INF/jsp/loginPage.jsp").forward(request, response);
+		}
+	}
+	
 	@WebServlet("/login")
 	static class Login extends HttpServlet {
 		
@@ -77,7 +87,7 @@ public class Controller {
 				result = authenticationManager.authenticate(username, password);
 			} catch (AuthenticationException e) {
 				System.out.println("Authentication failed: " + e.getMessage());
-				request.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(request, response);
+				request.getRequestDispatcher("WEB-INF/jsp/loginPage.jsp").forward(request, response);
 			}
 			
 			request.getSession().setAttribute("auth", result);

@@ -7,11 +7,9 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
-@WebFilter("/*")
+@WebFilter(filterName = "securityConfigFilter")
 public class SecurityConfigFilter implements Filter {
 	
 	@Override
@@ -32,8 +30,7 @@ public class SecurityConfigFilter implements Filter {
 			SecurityConfig securityConfig = new SecurityConfig();
 			
 			securityConfig.configureAdminRights("/delete", "/edit");
-			securityConfig.configureUserRights("/add");
-			securityConfig.configureGuestRights("/", "/main", "/news");
+			securityConfig.configureUserRights("/news");
 			
 			request.getServletContext().setAttribute("securityConfig", securityConfig);
 		}

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter("/*")
+@WebFilter(filterName = "securityFilter")
 public class SecurityFilter implements Filter {
 	
 	@Override
@@ -26,14 +26,14 @@ public class SecurityFilter implements Filter {
 		Authentication authentication = (Authentication) request.getSession().getAttribute("auth");
 		SecurityConfig securityConfig = (SecurityConfig) request.getServletContext().getAttribute("securityConfig");
 		
-		List<String> allowedURLs = securityConfig.getAllowedURLs(authentication.getAuthority());
+		List<String> forbiddenURLs = securityConfig.getForbiddenURLs(authentication.getAuthority());
 		
-		for (String allowedURL : allowedURLs) {
-			if (request.getServletPath().equals(allowedURL)) {
-				filterChain.doFilter(request, response);
+		for (String forbiddenURL : forbiddenURLs) {
+			if (request.getServletPath().equals(forbiddenURL)) {
+				response.sendRedirect("/main");
 			}
 		}
-		throw new ServletException("Forbidden");
+		filterChain.doFilter(request, response);
 	}
 	
 	@Override
