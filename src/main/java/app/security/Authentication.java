@@ -1,7 +1,5 @@
 package app.security;
 
-import java.util.List;
-
 public class Authentication {
 	
 	private String username;

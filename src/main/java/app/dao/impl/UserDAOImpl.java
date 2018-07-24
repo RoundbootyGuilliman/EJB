@@ -1,7 +1,6 @@
 package app.dao.impl;
 
 import app.dao.UserDAO;
-import app.dao.UserDAORemote;
 import app.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,12 +8,9 @@ import org.hibernate.SessionFactory;
 import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.PersistenceContext;
-import java.util.List;
 
 @Stateless
-//@Component
-public class UserDAOImpl implements UserDAO, UserDAORemote {
+public class UserDAOImpl implements UserDAO {
 	
 	@Inject
 	private SessionFactory sessionFactory;
@@ -36,19 +32,7 @@ public class UserDAOImpl implements UserDAO, UserDAORemote {
 		session.getTransaction().commit();
 		session.close();
 	}
-
-	@Override
-	public List<User> getAllUsers() {
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-
-		List<User> newsList = session.createQuery("from User").list();
-
-		session.getTransaction().commit();
-		session.close();
-		return newsList;
-	}
-
+	
 	@Override
 	public User getByEmail(String email) {
 		Session session = sessionFactory.openSession();
@@ -60,8 +44,7 @@ public class UserDAOImpl implements UserDAO, UserDAORemote {
 		session.close();
 		return user;
 	}
-
-
+	
 	@Override
 	public void deleteUser(String email) {
 		Session session = sessionFactory.openSession();

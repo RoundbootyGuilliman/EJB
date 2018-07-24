@@ -1,7 +1,6 @@
 package app.dao.impl;
 
 import app.dao.NewsDAO;
-import app.dao.NewsDAORemote;
 import app.entity.News;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,7 +12,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Stateless
-public class NewsDAOImpl implements NewsDAO, NewsDAORemote {
+public class NewsDAOImpl implements NewsDAO {
 
 	@Inject @Default
 	private SessionFactory sessionFactory;
@@ -47,18 +46,6 @@ public class NewsDAOImpl implements NewsDAO, NewsDAORemote {
 		session.getTransaction().commit();
 		session.close();
 		return news;
-	}
-
-	@Override
-	public List<News> getNewsByAuthor(String username) {
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-
-		List<News> newsList = session.createQuery("from News where author=:username").setParameter("username", username).list();
-
-		session.getTransaction().commit();
-		session.close();
-		return newsList;
 	}
 
 	@Override

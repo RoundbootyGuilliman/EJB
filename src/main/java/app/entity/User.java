@@ -1,14 +1,12 @@
 package app.entity;
 
-import app.dto.AbstractUser;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "USERS")
-public class User implements AbstractUser {
+public class User {
 
 	@Id
 	@GeneratedValue(generator = "increment")
@@ -16,17 +14,13 @@ public class User implements AbstractUser {
 	@Column(name = "USER_ID")
 	private int id;
 
-	@Column(name = "USERNAME")
 	private String username;
 
-	@Column(name = "PASSWORD")
 	private String password;
 	
-	@Column(name = "EMAIL")
 	private String email;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<Role> roles;
+	private String role;
 
 	public int getId() {
 		return id;
@@ -59,12 +53,12 @@ public class User implements AbstractUser {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public List<Role> getRoles() {
-		return roles;
+	
+	public String getRole() {
+		return role;
 	}
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	
+	public void setRole(String role) {
+		this.role = role;
 	}
 }

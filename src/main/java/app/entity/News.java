@@ -1,15 +1,13 @@
 package app.entity;
 
-import app.dto.AbstractNews;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "NEWS")
-public class News implements AbstractNews<Comment> {
+public class News {
 
 	@Id
 	@GeneratedValue(generator = "increment")
@@ -28,9 +26,6 @@ public class News implements AbstractNews<Comment> {
 	private String brief;
 
 	private String content;
-
-	@OneToMany(mappedBy = "news", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Comment> comments;
 
 	public int getId() {
 		return id;
@@ -78,13 +73,5 @@ public class News implements AbstractNews<Comment> {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
 	}
 }

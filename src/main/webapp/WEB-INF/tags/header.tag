@@ -11,28 +11,28 @@
 		var checkboxes = document.getElementsByTagName("input");
 		var j = 0;
 		var elements = document.getElementsByName("disabledButton");
+		var i = 0;
 		
-		for (var i = 0; i < checkboxes.length; i++) {
+		for (i = 0; i < checkboxes.length; i++) {
 			if (checkboxes[i].getAttribute("type") == "checkbox" && checkboxes[i].checked) {
 				j++;
 			}
 		}
 		if (j == 0) {
-			for (var i = 0; i < elements.length; i++) {
+			for (i = 0; i < elements.length; i++) {
 				elements[i].setAttribute("disabled", "");
 			}
 		} else {
-			for (var i = 0; i < elements.length; i++) {
+			for (i = 0; i < elements.length; i++) {
 				elements[i].removeAttribute("disabled");
 			}
 		}
-		
 	}
 	function ok() {
 		var elements;
-		if (${pageContext.request.isUserInRole("ADMIN")}) {
+		if (${sessionScope.auth.authority eq "ADMIN"}) {
 			elements = document.querySelectorAll("[name=adminElement], [name=userElement]");
-		} else if (${pageContext.request.isUserInRole("USER")}) {
+		} else if (${sessionScope.auth.authority eq "USER"}) {
 			elements = document.getElementsByName("userElement");
 		} else {
 			elements = document.getElementsByName("guestElement");
@@ -43,7 +43,6 @@
 	}
 </script>
 <form id="logout" action="/logout" method="post" hidden>
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<a class="navbar-brand" href="/main"><fmt:message key="header.main" bundle="${lang}"/></a>
@@ -53,7 +52,7 @@
 	</ul>
 	<ul class="navbar-nav ml-auto">
 		<li name="guestElement" class="nav-item" hidden>
-			<a class="nav-link" href="/loginPage"><fmt:message key="header.login" bundle="${lang}"/></a>
+			<a class="nav-link" href="/openLogin"><fmt:message key="header.login" bundle="${lang}"/></a>
 		</li>
 		<li name="guestElement" class="nav-item" hidden>
 			<a class="nav-link" href="/openReg"><fmt:message key="header.register" bundle="${lang}"/></a>

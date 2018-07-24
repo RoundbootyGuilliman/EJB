@@ -10,7 +10,6 @@ public interface NewsDAO {
 
 	List<News> getAllNews();
 	News getNewsById(int id);
-	List<News> getNewsByAuthor(String username);
 	int saveNews(News news);
 	void deleteNews(int id);
 }

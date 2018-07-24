@@ -5,7 +5,9 @@
 
 <html lang="en">
 <head>
-	<title><fmt:message key="title.login" bundle="${lang}"/></title>
+	<title>
+		<%--<fmt:message key="title.login" bundle="${lang}"/>--%>
+	</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -21,21 +23,19 @@
 <fmt:setBundle basename="ValidationMessages" var="lang"/>
 <tag:header/>
 <div class="container" id="test" style="margin-top:30px">
-	${error}
-	${message}
-	
+	${requestScope.error}<br>
 	<form name="login" action="/login" method="POST">
 		<table>
 			<tr>
 				<td><fmt:message key="label.email" bundle="${lang}"/>:</td>
-				<td><input type='text' name='username' value=''></td>
+				<td><input type="text" name="email"/></td>
 			</tr>
 			<tr>
 				<td><fmt:message key="label.password" bundle="${lang}"/>:</td>
-				<td><input type='password' name='password' /></td>
+				<td><input type="password" name="password"/></td>
 			</tr>
 			<tr>
-				<td colspan='2'><button type="submit"><fmt:message key="header.login" bundle="${lang}"/></button></td>
+				<td colspan="2"><button class="btn btn-primary" type="submit"><fmt:message key="header.login" bundle="${lang}"/></button></td>
 			</tr>
 		</table>
 	</form>

@@ -36,13 +36,16 @@
 				<div class="fakeimg">Fake Image</div>
 				<p>${news.brief}...</p>
 
-				<a href="/news?id=${news.id}"><button type="button">
+				<a href="/news?id=${news.id}"><button class="btn btn-primary" type="button">
 					<fmt:message key="button.read" bundle="${lang}"/>
 				</button></a>
 				<br><br>
-				<a name="adminElement" href="/edit/${news.id}" hidden><button type="button">
-					<fmt:message key="button.edit" bundle="${lang}"/>
-				</button><br><br></a>
+				<form name="adminElement" action="/edit" method="post" hidden>
+					<input type="hidden" name="id" value="${news.id}">
+					<button class="btn btn-primary" type="submit">
+						<fmt:message key="button.edit" bundle="${lang}"/>
+					</button>
+				</form>
 				<div name="adminElement" class="row" hidden>
 					<div class="col-1" style="padding-right: 0;">
 						<div class="checkbox-primary">
@@ -56,8 +59,7 @@
 				<hr>
 			</c:forEach>
 			<form id="delete" name="adminElement" method="post" action="/delete" hidden>
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				<button name="disabledButton" type="submit" disabled>
+				<button class="btn btn-primary" name="disabledButton" type="submit" disabled>
 					<fmt:message key="button.deleteSelected" bundle="${lang}"/>
 				</button>
 			</form>
