@@ -4,7 +4,6 @@ import app.entity.News;
 import app.service.NewsService;
 
 import javax.inject.Inject;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,13 +19,9 @@ public class Submit extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		News news;
-		System.out.println(request.getParameter("id"));
-		System.out.println(request.getParameter("id").equals(""));
 		if (request.getParameter("id").equals("")) {
-			System.out.println("IF");
 			news = new News();
 		} else {
-			System.out.println("ELSE");
 			news = newsService.getNewsById(Integer.parseInt(request.getParameter("id")));
 		}
 		

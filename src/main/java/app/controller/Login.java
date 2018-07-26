@@ -24,6 +24,8 @@ public class Login extends HttpServlet {
 		String email = request.getParameter("email");
 		
 		String password = request.getParameter("password");
+		
+		System.out.println(email + password);
 		Authentication result = null;
 		try {
 			result = authenticationManager.authenticate(email, password);
@@ -35,7 +37,7 @@ public class Login extends HttpServlet {
 		
 		request.getSession().setAttribute("auth", result);
 		
-		System.out.println("Successfully authenticated.");
+		System.out.println("Successfully authenticated");
 		String path = (String) request.getSession().getAttribute("requestedPath");
 		if (path == null || path.equals("")) {
 			path = "/main";
