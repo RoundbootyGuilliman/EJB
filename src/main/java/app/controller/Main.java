@@ -19,6 +19,7 @@ public class Main extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("newsList", newsService.getAllNews());
+//		System.out.println(request.getAttribute());
 		request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request, response);
 	}
 }
