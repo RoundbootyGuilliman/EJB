@@ -35,7 +35,6 @@ public class NewsServiceImplTest {
 		news.setTitle("MOCK");
 		
 		when(dao.getNewsById(anyInt())).thenReturn(news);
-		when(dao.saveNews(any())).thenReturn(1);
 	}
 	
 	@Test

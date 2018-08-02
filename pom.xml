@@ -70,4 +70,19 @@
 			<version>2.9.6</version>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>1.2.2.Final</version>
+				<configuration>
+					<hostname>${hostname}</hostname>
+					<port>8888</port>
+					<username>root</username>
+					<password>root</password>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
